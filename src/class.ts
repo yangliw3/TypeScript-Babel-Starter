@@ -254,7 +254,30 @@ console.log(Person.calculateDistanceFromOrigin({x:6, y:7}))
 
 
 
+/**
+ * 
+ * @param arg1     必须参数 参数类型校验
+ * @param param1   解构参数
+ * @param arg2     可选参数
+ * @param arg3     默认参数
+ * @param rests    spread
+ */
+function showAllFunctionParameterUseage(arg1: string, {x, y}:Point = {x:0, y:0} , arg2?: number, arg3:string = 'arg3 default name', ...rests:any[]): number {
 
+    console.log(`
+    -------------------------------
+        arg1:${arg1}
+        x: ${x}
+        y: ${y}
+        arg2: ${arg2}
+        x: ${arg3}
+        rests: ${rests}
+        `)
+    return 1;
+}
+
+showAllFunctionParameterUseage('11',{x:22, y:33},444,'555',1,2,3,4,5,6)
+showAllFunctionParameterUseage('111')
 
 
 
