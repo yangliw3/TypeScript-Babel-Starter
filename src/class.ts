@@ -176,8 +176,13 @@ interface Point {
 }
 
 
+abstract class AbstractAnimal{
+    public static couter: number = 0;
+    public abstract makeSound(msg: string): void;
+}
 
-class Person {
+
+class Person extends AbstractAnimal {
 
     /**
      * 演示 静态成员
@@ -198,6 +203,7 @@ class Person {
     public readonly gender: string;
 
     public constructor(name: string, age: number, gender: string){
+        super(); // 如果集成了其他类， 构造方法中必须先使用 super()
         this._age = age;
         this.name = name;
         this.gender = gender;
@@ -210,6 +216,10 @@ class Person {
     public get age(): number{
         console.log('use getter ... ...')
         return this._age;
+    }
+
+    public makeSound(msg: string){
+        console.log('abstract method makeSound:  ' + msg)
     }
 
 
@@ -232,7 +242,8 @@ class Employee extends Person {
 
 let yangli: Person = new Person('yangli', 26, 'male')
 yangli.showMe();
-console.log(`this is ${yangli.age}`)
+console.log(`this is ${yangli.age}`);
+yangli.makeSound('我是msg')
 
 let yangliEmployee: Person = new Employee('yangliEmployee', 28,  'male', 'front end engineer')
 yangliEmployee.showMe();
