@@ -128,11 +128,22 @@ interface SquareConfig {
     color?: string;
 }
 
+/**
+ * interface 描述对象的 property
+ */
 interface point {
-    readonly x: number;
+    readonly x: number;  // 只读属性，不允许修改
     readonly y: number;
     [propName: string]: any;  // 允许point 有多余的属性
 }
+
+/**
+ * interface 描述对象的 method
+ */
+interface searchFuncInterface {
+    (x: number, y: number): number;
+}
+
 
 class Square{
     area: number;
@@ -152,8 +163,83 @@ let point: point = {x: 1, y:1, z: 1}
 // point.x = 2;  // [ts] Cannot assign to 'x' because it is a read-only property. [2540]
 
 
+let mySearch:searchFuncInterface;
+mySearch = function(x, y){
+    return x * y;
+}
 
 
+
+interface Point {
+    x: number;
+    y: number;
+}
+
+
+
+class Person {
+
+    /**
+     * 演示 静态成员
+     */
+    public static origin:Point = {x:0, y: 0}
+    public static calculateDistanceFromOrigin(curPoint:Point): number {
+        let xDistance = curPoint.x - Person.origin.x;
+        let yDistance = curPoint.y - Person.origin.y;
+        return Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance, 2))
+    }
+
+
+    /**
+     * 演示实例成员
+     */
+    private _age: number;
+    public name: string;
+    public readonly gender: string;
+
+    public constructor(name: string, age: number, gender: string){
+        this._age = age;
+        this.name = name;
+        this.gender = gender;
+    }
+
+    public showMe(): void{
+        console.log(`i am ${this.name}, my age is ${this.age}, gender is ${this.gender}`)
+    }
+
+    public get age(): number{
+        console.log('use getter ... ...')
+        return this._age;
+    }
+
+
+}
+
+class Employee extends Person {
+    public department: string;
+
+    public constructor(name: string, age:number, gender: string, department: string){
+        super(name, age, gender);
+        this.department = department;
+    }
+
+    public showMe(): void{
+        console.log(`[${this.name}] is employee, department is [${this.department}]`)
+    }
+}
+
+
+
+let yangli: Person = new Person('yangli', 26, 'male')
+yangli.showMe();
+console.log(`this is ${yangli.age}`)
+
+let yangliEmployee: Person = new Employee('yangliEmployee', 28,  'male', 'front end engineer')
+yangliEmployee.showMe();
+
+
+console.log(Person.calculateDistanceFromOrigin({x:3, y:4})) 
+console.log(Person.calculateDistanceFromOrigin({x:6, y:7})) 
 
 
 
