@@ -60,7 +60,7 @@ function writeEnumsToTinyFile(enums: IEnum[]): void {
         let lines = [];
         let enumCNDictLines = [];
         
-        lines.push(`import { type } from "os";`);
+        // lines.push(`import { type } from "os";`);
         lines.push(`import { IEnumCNDict } from "@/costom-types/advanced-types";`);
         lines.push(``);  // 写一个空行
         lines.push(`enum ${enumName} {`)
@@ -78,11 +78,12 @@ function writeEnumsToTinyFile(enums: IEnum[]): void {
             enumCNDictLines.push(`    [${enumName}.${enumItem.literal}]: "${enumItem.desc}",`);
 
         });
-        lines.push(`};`)
+        lines.push(`}`)
         enumCNDictLines.push(`};`);
 
         lines.push("");
         lines = lines.concat(enumCNDictLines);
+        lines.push("");
 
         // 把数组写入文件
         writeFileUseArr(
@@ -197,10 +198,6 @@ export function EnumCompilerFunc(options: IEnumCompilerOptions = {}) {
         console.log(`处理完毕了`);
         console.log(enums);
     });
-
-    writeFileUseArr(
-        path.join(optionsReal.fileNameOutput as string, "ret.txt"),
-        ["11","22","33"]);
     
 }
 

@@ -32,14 +32,3 @@ enum DeviceStatus
 	Unknown = 99,	//99：未知
 }
 ```
-
-<a id='DocumentContentKind'></a>
-
-```csharp
-/* 审核目标类型的枚举 */
-enum DocumentContentKind
-{
-	Embedded = 0,	//内嵌文本
-	File = 1,		//外部文件
-}
-```
