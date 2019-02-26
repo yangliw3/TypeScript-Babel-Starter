@@ -12,7 +12,7 @@ const ENUM_END_PAT = new RegExp("^[ \t]*\}[ \t]*$");
 // group[3]  描述
 // const ENUM_ITEM_PAT = /^[ \t]*([a-zA-Z0-9]+)(?:[ \t]*=[ \t]*("?\w+"?))?,[ \t]*\/\/(?:(?:\d+)[：:])?[ ]*([^\(\)（）]+)(?:(?:\(|（)[^\(\)（）]*(\)|）)?.*$/;
 // const ENUM_ITEM_PAT = /^\s*([a-zA-Z0-9]+)(?:\s*=\s*("?\w+"?))?\s*,\s*\/\/(?:\d+[:：]?)?\s*([^\(\)（）]*)(.*)$/;
-const ENUM_ITEM_PAT = /^\s*([a-zA-Z0-9]+)(?:\s*=\s*("?\w+"?))?\s*,\s*\/\/(?:\d+[:：])?\s*([^\(\)（）]*)(.*)$/;
+const ENUM_ITEM_PAT = /^\s*([a-zA-Z0-9]+)(?:\s*=\s*("?\w+"?))?\s*,?\s*\/\/(?:\d+[:：])?\s*([^\(\)（）]*)(.*)$/;
 
 
 // 枚举的一项
@@ -63,7 +63,7 @@ function writeEnumsToTinyFile(enums: IEnum[]): void {
         // lines.push(`import { type } from "os";`);
         lines.push(`import { IEnumCNDict } from "@/costom-types/advanced-types";`);
         lines.push(``);  // 写一个空行
-        lines.push(`enum ${enumName} {`)
+        lines.push(`export enum ${enumName} {`)
 
 
         enumCNDictLines.push(`export const ${firstCharLowerCase(enumName)}CNDict: IEnumCNDict<${enumName}> = {`);
@@ -89,7 +89,7 @@ function writeEnumsToTinyFile(enums: IEnum[]): void {
         writeFileUseArr(
             path.join(optionsReal.fileNameOutput as string,
                 "enum",
-                firstCharLowerCase(enumName) + ".ts"),
+                firstCharLowerCase(enumName) + ".enum.ts"),
             lines);
     })
 }
